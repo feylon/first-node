@@ -2,11 +2,10 @@
   "name": "vaqtinvha",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/api.js",
   "scripts": {
     "build": "npm run build:functions",
-    "build:functions": "tsc --project functions/tsconfig.json",
-    "start": "netlify dev"
+  "start": "netlify dev"
   },
   "keywords": [],
   "author": "",

@@ -54,7 +54,5 @@ res.status(201).send({
 });
 })
 // app.listen(3000, ()=>{
-//     console.log("server ishga tushdi")
-// });
 app.use("./netlify/functions/api",router)
 module.exports.handler = serverless(app);
