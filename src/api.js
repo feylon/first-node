@@ -1,13 +1,14 @@
 const express = require('express');
 const serverless = require("serverless-http");
 const cors = require("cors");
-let todos = require("./todos");
+let todos = require("../todos");
 const app = express()
 app.use(cors());
 app.use(express.json());
 app.use(express.static("./public"));
+const router = express.Router();
 
-app.get("/todo",(req,res)=>{
+router.get("/todo",(req,res)=>{
     let data = [];
     todos.forEach((i,j)=>{
         data.push(
@@ -21,7 +22,7 @@ app.get("/todo",(req,res)=>{
     res.status(200).send((data));
 });
 
-app.post('/todo_add',(req,res)=>{
+router.post('/todo_add',(req,res)=>{
     let data = [];
 todos.unshift(req.body);
 todos.forEach((i,j)=>{
@@ -36,7 +37,7 @@ todos.forEach((i,j)=>{
 res.status(201).send((data));
 });
 
-app.delete("/delete/:id",(req,res)=>{
+router.delete("/delete/:id",(req,res)=>{
 todos.splice(req.params.id,1);
 res.status(200).send({
     active:true
@@ -45,7 +46,7 @@ res.status(200).send({
 
 
 
-app.patch("/active/:id",(req,res)=>{
+router.patch("/active/:id",(req,res)=>{
 todos.splice(req.params.id,todos[req.params.id]);
 todos[todos[req.params.id]] = !todos[todos[req.params.id]];
 res.status(201).send({
@@ -55,5 +56,5 @@ res.status(201).send({
 // app.listen(3000, ()=>{
 //     console.log("server ishga tushdi")
 // });
-
+app.use("./netlify/functions/api",router)
 module.exports.handler = serverless(app);
