@@ -1,0 +1,8 @@
+[build]
+command = "npm run build" # Adjust this based on your project structure
+functions = "functions"   # Folder where Netlify looks for serverless functions
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
